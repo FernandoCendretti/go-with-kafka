@@ -1,0 +1,62 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/go
+{
+	"name": "Go",
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	"dockerComposeFile": "docker-compose.yml",
+	"service": "app",
+	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+	"features": {
+		"ghcr.io/devcontainers/features/node": {
+			"nodeGypDependencies": true,
+			"version": "lts"
+		},
+		"ghcr.io/devcontainers/features/common-utils:2": {
+			"installZsh": true,
+			"installOhMyZsh": true,
+			"upgradePackages": true,
+			"username": "vscode",
+			"userUid": "automatic",
+			"userGid": "automatic",
+			"installAfter": "ghcr.io/devcontainers/features/node"
+		},
+		"ghcr.io/devcontainers-contrib/features/zsh-plugins:0": {
+			"plugins": "git",
+			"omzPlugins": "https://github.com/zsh-users/zsh-autosuggestions",
+			"installAfter": "ghcr.io/devcontainers/features/common-utils"
+		}
+	},
+	"overrideFeatureInstallOrder": [
+		"ghcr.io/devcontainers/features/node",
+		"ghcr.io/devcontainers/features/common-utils",
+		"ghcr.io/devcontainers-contrib/features/zsh-plugins"
+	],
+	"remoteEnv": {
+		"SHELL": "/usr/bin/zsh"
+	},
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// This can be used to network with other containers or the host.
+	"forwardPorts": [ 5432 ],
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	"postCreateCommand": ".devcontainer/boot.sh",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				// Add extensions you want installed when the container is created here.
+				"letrieu.expand-region", // Expands the selection region intelligently.
+				"GitHub.vscode-pull-request-github", // GitHub Pull Request and Issues integration for VS Code.
+				"eamodio.gitlens", // Enhances Git capabilities in VS Code (e.g., blame, history).
+				"spywhere.guides", // Adds indentation guides to the editor.
+				"yzhang.markdown-all-in-one", // All-in-one Markdown support (e.g., preview, shortcuts).
+				"Tyriar.sort-lines", // Sorts lines of text in the editor.
+				"emilylilylime.vscode-test-explorer-diagnostics", // Adds diagnostics to the test explorer.
+				"connorshea.vscode-test-explorer-status-bar", // Displays test status in the status bar.
+				"wayou.vscode-todo-highlight", // Highlights TODO, FIXME, and other annotations in code.
+				"Gruntfuggly.todo-tree", // Displays TODOs and FIXMEs in a tree view.
+				"redhat.vscode-yaml" // YAML support with validation, IntelliSense, and formatting.
+			]
+		}
+	}
+}
