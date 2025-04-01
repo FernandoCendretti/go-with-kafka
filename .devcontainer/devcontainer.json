@@ -1,50 +1,60 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/go
 {
+	// Name of the development container.
 	"name": "Go",
-	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+
+	// Specifies the Docker Compose file to use for the container setup.
 	"dockerComposeFile": "docker-compose.yml",
+
+	// Specifies the service in the Docker Compose file to use as the main container.
 	"service": "app",
+
+	// Sets the folder inside the container where the workspace will be mounted.
 	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+
+	// Defines features to install in the container.
 	"features": {
-		"ghcr.io/devcontainers/features/node": {
-			"nodeGypDependencies": true,
-			"version": "lts"
-		},
+		// Installs common utilities like Zsh, Oh My Zsh, and upgrades packages.
 		"ghcr.io/devcontainers/features/common-utils:2": {
 			"installZsh": true,
 			"installOhMyZsh": true,
 			"upgradePackages": true,
-			"username": "vscode",
-			"userUid": "automatic",
-			"userGid": "automatic",
-			"installAfter": "ghcr.io/devcontainers/features/node"
+			"username": "vscode", // Sets the username for the container.
+			"userUid": "automatic", // Automatically assigns a user UID.
+			"userGid": "automatic", // Automatically assigns a user GID.
+			"installAfter": "ghcr.io/devcontainers/features/node" // Ensures this feature installs after Node.js.
 		},
+		// Installs Zsh plugins, including Git and autosuggestions.
 		"ghcr.io/devcontainers-contrib/features/zsh-plugins:0": {
-			"plugins": "git",
-			"omzPlugins": "https://github.com/zsh-users/zsh-autosuggestions",
-			"installAfter": "ghcr.io/devcontainers/features/common-utils"
+			"plugins": "git", // Installs the Git plugin for Zsh.
+			"omzPlugins": "https://github.com/zsh-users/zsh-autosuggestions", // Adds autosuggestions plugin.
+			"installAfter": "ghcr.io/devcontainers/features/common-utils" // Installs after common utilities.
 		}
 	},
+
+	// Specifies the order in which features should be installed.
 	"overrideFeatureInstallOrder": [
-		"ghcr.io/devcontainers/features/node",
 		"ghcr.io/devcontainers/features/common-utils",
 		"ghcr.io/devcontainers-contrib/features/zsh-plugins"
 	],
+
+	// Sets environment variables for the container.
 	"remoteEnv": {
-		"SHELL": "/usr/bin/zsh"
+		"SHELL": "/usr/bin/zsh" // Sets Zsh as the default shell.
 	},
 
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// This can be used to network with other containers or the host.
-	"forwardPorts": [ 5432 ],
+	// Forwards specific ports from the container to the host machine.
+	"forwardPorts": [ 5432 ], // Forwards port 5432, commonly used by PostgreSQL.
 
-	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": ".devcontainer/boot.sh",
+	// Runs a script after the container is created.
+	"postCreateCommand": ".devcontainer/boot.sh", // Executes the boot.sh script.
+
+	// Customizes the VS Code environment inside the container.
 	"customizations": {
 		"vscode": {
 			"extensions": [
-				// Add extensions you want installed when the container is created here.
+				// List of VS Code extensions to install in the container.
 				"letrieu.expand-region", // Expands the selection region intelligently.
 				"GitHub.vscode-pull-request-github", // GitHub Pull Request and Issues integration for VS Code.
 				"eamodio.gitlens", // Enhances Git capabilities in VS Code (e.g., blame, history).

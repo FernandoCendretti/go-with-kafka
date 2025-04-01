@@ -9,6 +9,7 @@ go mod tidy
 # Change ownership of Go directories to vscode user
 sudo chown -R vscode:vscode
 
+# Creating a Kafka topic
 echo "Wating for Kafka to start..."
 sleep 10
 

@@ -6,7 +6,7 @@ services:
       dockerfile: .devcontainer/Dockerfile
     environment:
       - VISUAL="code --wait"
-      - APPNAME=batch_image_processor
+      - APPNAME=go-with-kafka
 
     volumes:
       - ../..:/workspaces:cached
